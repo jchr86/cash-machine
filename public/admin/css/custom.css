@@ -1,0 +1,19 @@
+.breadcrumb > li + li:before {
+    color: #FFFFFF;
+}
+
+.breadcrumb li span {
+    color: #FFFFFF;
+}
+
+.clear {
+    clear: both;
+}
+
+.login-logo {
+    font-weight: bold;
+}
+
+.text-title {
+    padding: 10px;
+}

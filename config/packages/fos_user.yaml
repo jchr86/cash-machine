@@ -1,0 +1,15 @@
+fos_user:
+    db_driver:      orm
+    user_class:     App\Application\Sonata\UserBundle\Entity\User
+    firewall_name:  main
+
+    group:
+        group_class:   App\Application\Sonata\UserBundle\Entity\Group
+        group_manager: sonata.user.orm.group_manager
+
+    service:
+        user_manager: sonata.user.orm.user_manager
+
+    from_email:
+        address: "%mailer_user%"
+        sender_name: "%mailer_user%"
