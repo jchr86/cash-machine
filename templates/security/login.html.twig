@@ -1,0 +1,35 @@
+{% extends 'security/layout.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <form method="post" class="form-signin">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Salir</a>
+            </div>
+        {% endif %}
+
+        <h1 class="h3 mb-3 font-weight-normal">Cash Machine</h1>
+
+        <label for="card_number" class="sr-only">Card Number</label>
+        <input type="text" value="{{ last_username }}" name="card_number" id="card_number" class="form-control" minlength="16" maxlength="16" placeholder="Número de tarjeta" required autofocus>
+
+        <label for="password" class="sr-only">PIN</label>
+        <input type="password" name="password" id="password" class="form-control" minlength="4" maxlength="4" placeholder="PIN" required>
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+        <button class="btn btn-lg btn-primary" type="submit">
+            Ingresar
+        </button>
+    </form>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/security.css') }}">
+{% endblock %}

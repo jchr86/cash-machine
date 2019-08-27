@@ -4,10 +4,19 @@ security:
 
     encoders:
         FOS\UserBundle\Model\UserInterface: bcrypt
+        App\Entity\Account:
+            algorithm: auto
+
 
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username
+
+        # used to reload user from session & other features (e.g. switch_user)
+        account_provider:
+            entity:
+                class: App\Entity\Account
+                property: cardNumber
 
     firewalls:
         dev:
@@ -28,6 +37,18 @@ security:
                 target:         /admin/login
             anonymous:          true
             switch_user: true
+            provider: fos_userbundle
+
+        main:
+            anonymous: ~
+            provider: account_provider
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
 
     access_control:
         # Admin login page needs to be accessed without credential
@@ -36,4 +57,5 @@ security:
         - { path: ^/admin/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
-        - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/.*, role: ROLE_USER }

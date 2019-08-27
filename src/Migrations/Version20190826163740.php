@@ -97,7 +97,7 @@ CREATE TABLE account (
     amount NUMERIC(10, 2) NOT NULL,
     balance NUMERIC(10, 2) DEFAULT NULL,
     type SMALLINT NOT NULL,
-    pin SMALLINT NOT NULL,
+    pin VARCHAR(150) NOT NULL,
     created_at DATETIME NOT NULL,
     updated_at DATETIME NOT NULL,
     UNIQUE INDEX UNIQ_7D3656A496901F54 (number),

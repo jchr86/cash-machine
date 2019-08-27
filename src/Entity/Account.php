@@ -16,6 +16,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -26,7 +27,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * @UniqueEntity("clabe")
  * @UniqueEntity("cardNumber")
  */
-class Account
+class Account implements UserInterface
 {
     use TimestampableEntity;
 
@@ -66,7 +67,6 @@ class Account
      * @ORM\Column(type="smallint")
      *
      * @Assert\NotBlank()
-     * @Assert\Length(min="2", max="2")
      * @Assert\Type(type="integer")
      * @Assert\GreaterThanOrEqual(1)
      * @Assert\LessThanOrEqual(12)
@@ -124,13 +124,19 @@ class Account
     private $movements;
 
     /**
-     * @ORM\Column(type="smallint")
-     *
-     * @Assert\NotBlank()
-     * @Assert\Length(min="4", max="4")
-     * @Assert\Type(type="integer")
+     * @ORM\Column(type="string", length=150)
      */
     private $pin;
+
+    /**
+     * Plain pin. Used for model validation. Must not be persisted.
+     *
+     * @var string
+     *
+     * @Assert\Length(min="4", max="4")
+     * @Assert\Type(type="numeric")
+     */
+    protected $plainPin;
 
     /**
      * Account constructor.
@@ -159,14 +165,23 @@ class Account
             if (empty($this->getNumber())) {
                 $context->buildViolation('This value should not be blank.')
                     ->atPath('number')
-                    ->addViolation();
+                    ->addViolation()
+                ;
             }
 
             if (empty($this->getClabe())) {
                 $context->buildViolation('This value should not be blank.')
                     ->atPath('clabe')
-                    ->addViolation();
+                    ->addViolation()
+                ;
             }
+        }
+
+        if (!$this->getId() && empty($this->getPlainPin())) {
+            $context->buildViolation('This value should not be blank.')
+                ->atPath('plainPin')
+                ->addViolation()
+            ;
         }
     }
 
@@ -433,22 +448,87 @@ class Account
     }
 
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getPin(): ?int
+    public function getPin(): ?string
     {
         return $this->pin;
     }
 
     /**
-     * @param int $pin
+     * @param string $pin
      *
      * @return Account
      */
-    public function setPin(int $pin): self
+    public function setPin(string $pin): self
     {
         $this->pin = $pin;
 
         return $this;
+    }
+
+    /**
+     * Get Plain Pin.
+     *
+     * @return string|null
+     */
+    public function getPlainPin(): ?string
+    {
+        return $this->plainPin;
+    }
+
+    /**
+     * Set Plain Pin.
+     *
+     * @param string|null $plainPin
+     *
+     * @return Account
+     */
+    public function setPlainPin(?string $plainPin): Account
+    {
+        $this->plainPin = $plainPin;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->cardNumber;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRoles(): array
+    {
+        return ['ROLE_USER'];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPassword(): string
+    {
+        return (string) $this->pin;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSalt()
+    {
+        // not needed when using the "bcrypt" algorithm in security.yaml
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        $this->cvc = null;
     }
 }

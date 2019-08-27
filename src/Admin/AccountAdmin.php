@@ -20,6 +20,8 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\DoctrineORMAdminBundle\Filter\ChoiceFilter;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Account Admin.
@@ -37,6 +39,37 @@ final class AccountAdmin extends AbstractAdmin
 
     /** {@inheritdoc} */
     protected $classnameLabel = 'admin.account';
+
+    /** @var UserPasswordEncoderInterface */
+    private $passwordEncoder;
+
+    /**
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     */
+    public function setPasswordEncoder(UserPasswordEncoderInterface $passwordEncoder): void
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param Account $object
+     */
+    public function prePersist($object)
+    {
+        $this->encodePin($object);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param Account $object
+     */
+    public function preUpdate($object)
+    {
+        $this->encodePin($object);
+    }
 
     /**
      * {@inheritdoc}
@@ -165,8 +198,9 @@ final class AccountAdmin extends AbstractAdmin
                 ->add('cvc', null, [
                     'label' => 'label.cvc',
                 ])
-                ->add('pin', null, [
+                ->add('plainPin', TextType::class, [
                     'label' => 'label.pin',
+                    'required' => !$this->getSubject() || null === $this->getSubject()->getId(),
                 ])
             ->end()
         ;
@@ -234,5 +268,18 @@ final class AccountAdmin extends AbstractAdmin
                 ])
             ->end()
         ;
+    }
+
+    /**
+     * @param Account $account
+     */
+    private function encodePin(Account $account): void
+    {
+        if (!empty($account->getPlainPin())) {
+            $account->setPin($this->passwordEncoder->encodePassword(
+                $account,
+                $account->getPlainPin()
+            ));
+        }
     }
 }
