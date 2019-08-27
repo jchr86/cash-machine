@@ -7,6 +7,15 @@ sonata_admin:
     dashboard:
         blocks:
             - { type: sonata.admin.block.admin_list, position: left }
+        groups:
+            client:
+                label: menu.client
+                label_catalogue: messages
+                icon: '<i class="fa fa-user"></i>'
+            sonata_user:
+                label_catalogue: SonataUserBundle
+                icon: '<i class="fa fa-users"></i>'
+
     security:
         handler: sonata.admin.security.handler.role
     persist_filters: true

@@ -15,6 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
@@ -22,6 +23,9 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 class Client
 {
     use TimestampableEntity;
+
+    public const GENDER_MALE = 1;
+    public const GENDER_FEMALE = 2;
 
     /**
      * @ORM\Id()
@@ -32,16 +36,23 @@ class Client
 
     /**
      * @ORM\Column(type="string", length=80)
+     *
+     * @Assert\NotBlank()
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=100)
+     *
+     * @Assert\NotBlank()
      */
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=150)
+     * @ORM\Column(type="string", length=150, unique=true)
+     *
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $email;
 
@@ -52,11 +63,15 @@ class Client
 
     /**
      * @ORM\Column(type="string", length=50)
+     *
+     * @Assert\NotBlank()
      */
     private $street;
 
     /**
      * @ORM\Column(type="string", length=30)
+     *
+     * @Assert\NotBlank()
      */
     private $externalNum;
 
@@ -67,21 +82,30 @@ class Client
 
     /**
      * @ORM\Column(type="string", length=100)
+     *
+     * @Assert\NotBlank()
      */
     private $suburb;
 
     /**
      * @ORM\Column(type="string", length=100)
+     *
+     * @Assert\NotBlank()
      */
     private $town;
 
     /**
      * @ORM\Column(type="string", length=100)
+     *
+     * @Assert\NotBlank()
      */
     private $state;
 
     /**
      * @ORM\Column(type="string", length=5)
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min="5", max="5")
      */
     private $postalCode;
 
@@ -96,6 +120,35 @@ class Client
     public function __construct()
     {
         $this->accounts = new ArrayCollection();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getFullname();
+    }
+
+    /**
+     * Returns the gender list.
+     *
+     * @return array
+     */
+    public static function getGenderList(): array
+    {
+        return [
+            'gender_male' => self::GENDER_MALE,
+            'gender_female' => self::GENDER_FEMALE,
+        ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullname(): string
+    {
+        return sprintf('%s %s', $this->getName(), $this->getLastname());
     }
 
     /**

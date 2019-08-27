@@ -1,0 +1,7 @@
+services:
+    admin.client:
+        class: App\Admin\ClientAdmin
+        arguments: [~, App\Entity\Client, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: client, label: menu.client, label_translator_strategy: sonata.admin.label.strategy.noop, on_top: true }
+        public: true

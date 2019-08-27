@@ -31,17 +31,17 @@ class Account
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=10, nullable=true)
+     * @ORM\Column(type="string", length=10, nullable=true, unique=true)
      */
     private $number;
 
     /**
-     * @ORM\Column(type="string", length=16, nullable=true)
+     * @ORM\Column(type="string", length=16, nullable=true, unique=true)
      */
     private $clabe;
 
     /**
-     * @ORM\Column(type="string", length=16)
+     * @ORM\Column(type="string", length=16, unique=true)
      */
     private $cardNumber;
 

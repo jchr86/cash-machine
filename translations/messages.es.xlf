@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="es" datatype="plaintext" original="file.ext">
+        <body>
+            <!-- Labels -->
+            <trans-unit id="label_personal_data">
+                <source>label.personal_data</source>
+                <target>Datos Personales</target>
+            </trans-unit>
+            <trans-unit id="label_address">
+                <source>label.address</source>
+                <target>Dirección</target>
+            </trans-unit>
+            <trans-unit id="label_name">
+                <source>label.name</source>
+                <target>Nombre (s)</target>
+            </trans-unit>
+            <trans-unit id="label_lastname">
+                <source>label.lastname</source>
+                <target>Apellidos</target>
+            </trans-unit>
+            <trans-unit id="label_email">
+                <source>label.email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="label_gender">
+                <source>label.gender</source>
+                <target>Sexo</target>
+            </trans-unit>
+            <trans-unit id="label_street">
+                <source>label.street</source>
+                <target>Calle</target>
+            </trans-unit>
+            <trans-unit id="label_external_num">
+                <source>label.external_num</source>
+                <target># Exterior</target>
+            </trans-unit>
+            <trans-unit id="label_internal_num">
+                <source>label.internal_num</source>
+                <target># Interior</target>
+            </trans-unit>
+            <trans-unit id="label_suburb">
+                <source>label.suburb</source>
+                <target>Colonia</target>
+            </trans-unit>
+            <trans-unit id="label_town">
+                <source>label.town</source>
+                <target>Municipio / Delegación</target>
+            </trans-unit>
+            <trans-unit id="label_state">
+                <source>label.state</source>
+                <target>Estado</target>
+            </trans-unit>
+            <trans-unit id="label_postal_code">
+                <source>label.postal_code</source>
+                <target>Código Postal</target>
+            </trans-unit>
+            <trans-unit id="label_id">
+                <source>label.id</source>
+                <target>ID</target>
+            </trans-unit>
+            <trans-unit id="label_created_at">
+                <source>label.created_at</source>
+                <target>F. Creado</target>
+            </trans-unit>
+            <trans-unit id="label_updated_at">
+                <source>label.updated_at</source>
+                <target>F. Actualizado</target>
+            </trans-unit>
+            <trans-unit id="_action">
+                <source>_action</source>
+                <target>Acciones</target>
+            </trans-unit>
+            <trans-unit id="label_dates">
+                <source>label.dates</source>
+                <target>Fechas</target>
+            </trans-unit>
+            <!-- /Labels -->
+
+            <!-- Grids -->
+            <trans-unit id="menu_client">
+                <source>menu.client</source>
+                <target>Clientes</target>
+            </trans-unit>
+            <trans-unit id="admin_client_list">
+                <source>admin.client_list</source>
+                <target>Listado de Clientes</target>
+            </trans-unit>
+            <trans-unit id="admin_client_create">
+                <source>admin.client_create</source>
+                <target>Crear Clientes</target>
+            </trans-unit>
+            <!-- /Grids -->
+
+            <!-- DB -->
+            <trans-unit id="gender_male">
+                <source>gender_male</source>
+                <target>masculino</target>
+            </trans-unit>
+            <trans-unit id="gender_female">
+                <source>gender_female</source>
+                <target>femenino</target>
+            </trans-unit>
+            <!-- /DB -->
+        </body>
+    </file>
+</xliff>
