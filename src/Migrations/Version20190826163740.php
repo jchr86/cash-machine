@@ -89,7 +89,7 @@ CREATE TABLE account (
     id INT AUTO_INCREMENT NOT NULL,
     client_id INT NOT NULL,
     number VARCHAR(10) DEFAULT NULL,
-    clabe VARCHAR(16) DEFAULT NULL,
+    clabe VARCHAR(18) DEFAULT NULL,
     card_number VARCHAR(16) NOT NULL,
     expiry_month SMALLINT NOT NULL,
     expiry_year SMALLINT NOT NULL,

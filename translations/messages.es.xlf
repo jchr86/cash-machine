@@ -75,7 +75,66 @@
                 <source>label.dates</source>
                 <target>Fechas</target>
             </trans-unit>
+            <trans-unit id="label_account">
+                <source>label.account</source>
+                <target>Datos de la Cuenta</target>
+            </trans-unit>
+            <trans-unit id="label_card">
+                <source>label.card</source>
+                <target>Datos de la Tarjeta</target>
+            </trans-unit>
+            <trans-unit id="label_account_type">
+                <source>label.account_type</source>
+                <target>Tipo de Cuenta</target>
+            </trans-unit>
+            <trans-unit id="label_account_number">
+                <source>label.account_number</source>
+                <target>Número de Cuenta</target>
+            </trans-unit>
+            <trans-unit id="label_clabe">
+                <source>label.clabe</source>
+                <target>Cuenta CLABE</target>
+            </trans-unit>
+            <trans-unit id="label_amount">
+                <source>label.amount</source>
+                <target>Monto Disponible</target>
+            </trans-unit>
+            <trans-unit id="label_card_number">
+                <source>label.card_number</source>
+                <target>Número de Tarjeta</target>
+            </trans-unit>
+            <trans-unit id="label_expiry_month">
+                <source>label.expiry_month</source>
+                <target>Mes de Expiración</target>
+            </trans-unit>
+            <trans-unit id="label_expiry_year">
+                <source>label.expiry_year</source>
+                <target>Año de Expiración</target>
+            </trans-unit>
+            <trans-unit id="label_cvc">
+                <source>label.cvc</source>
+                <target>Código CVC</target>
+            </trans-unit>
+            <trans-unit id="label_pin">
+                <source>label.pin</source>
+                <target>PIN</target>
+            </trans-unit>
+            <trans-unit id="label_client">
+                <source>label.client</source>
+                <target>Cliente</target>
+            </trans-unit>
+            <trans-unit id="label_balance">
+                <source>label.balance</source>
+                <target>Balance</target>
+            </trans-unit>
             <!-- /Labels -->
+
+            <!-- Help -->
+            <trans-unit id="help_debit_card">
+                <source>help.debit_card</source>
+                <target>Sólo aplica para tarjeta de débito</target>
+            </trans-unit>
+            <!-- /Help -->
 
             <!-- Grids -->
             <trans-unit id="menu_client">
@@ -90,6 +149,19 @@
                 <source>admin.client_create</source>
                 <target>Crear Clientes</target>
             </trans-unit>
+
+            <trans-unit id="menu_account">
+                <source>menu.account</source>
+                <target>Cuentas</target>
+            </trans-unit>
+            <trans-unit id="admin_account_list">
+                <source>admin.account_list</source>
+                <target>Listado de Cuentas</target>
+            </trans-unit>
+            <trans-unit id="admin_account_create">
+                <source>admin.account_create</source>
+                <target>Crear Cuenta</target>
+            </trans-unit>
             <!-- /Grids -->
 
             <!-- DB -->
@@ -100,6 +172,15 @@
             <trans-unit id="gender_female">
                 <source>gender_female</source>
                 <target>femenino</target>
+            </trans-unit>
+
+            <trans-unit id="card_debit">
+                <source>card_debit</source>
+                <target>Débito</target>
+            </trans-unit>
+            <trans-unit id="card_credit">
+                <source>card_credit</source>
+                <target>Crédito</target>
             </trans-unit>
             <!-- /DB -->
         </body>

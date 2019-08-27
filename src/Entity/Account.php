@@ -15,13 +15,23 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AccountRepository")
+ *
+ * @UniqueEntity("number")
+ * @UniqueEntity("clabe")
+ * @UniqueEntity("cardNumber")
  */
 class Account
 {
     use TimestampableEntity;
+
+    public const TYPE_DEBIT = 1;
+    public const TYPE_CREDIT = 2;
 
     /**
      * @ORM\Id()
@@ -32,36 +42,59 @@ class Account
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true, unique=true)
+     *
+     * @Assert\Length(min="10", max="10")
      */
     private $number;
 
     /**
-     * @ORM\Column(type="string", length=16, nullable=true, unique=true)
+     * @ORM\Column(type="string", length=18, nullable=true, unique=true)
+     *
+     * @Assert\Length(min="18", max="18")
      */
     private $clabe;
 
     /**
      * @ORM\Column(type="string", length=16, unique=true)
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min="16", max="16")
      */
     private $cardNumber;
 
     /**
      * @ORM\Column(type="smallint")
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min="2", max="2")
+     * @Assert\Type(type="integer")
+     * @Assert\GreaterThanOrEqual(1)
+     * @Assert\LessThanOrEqual(12)
      */
     private $expiryMonth;
 
     /**
      * @ORM\Column(type="smallint")
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min="4", max="4")
+     * @Assert\Type(type="integer")
      */
     private $expiryYear;
 
     /**
-     * @ORM\Column(type="smallint")
+     * @ORM\Column(type="smallint", length=4)
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min="3", max="4")
+     * @Assert\Type(type="integer")
      */
     private $cvc;
 
     /**
      * @ORM\Column(type="decimal", precision=10, scale=2)
+     *
+     * @Assert\Type(type="numeric")
      */
     private $amount;
 
@@ -72,12 +105,16 @@ class Account
 
     /**
      * @ORM\Column(type="smallint")
+     *
+     * @Assert\NotBlank()
      */
     private $type;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="accounts")
      * @ORM\JoinColumn(nullable=false)
+     *
+     * @Assert\NotBlank()
      */
     private $client;
 
@@ -88,6 +125,10 @@ class Account
 
     /**
      * @ORM\Column(type="smallint")
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min="4", max="4")
+     * @Assert\Type(type="integer")
      */
     private $pin;
 
@@ -97,6 +138,49 @@ class Account
     public function __construct()
     {
         $this->movements = new ArrayCollection();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->getCardNumber();
+    }
+
+    /**
+     * @param ExecutionContextInterface $context
+     *
+     * @Assert\Callback()
+     */
+    public function validate(ExecutionContextInterface $context): void
+    {
+        if (self::TYPE_DEBIT === $this->type) {
+            if (empty($this->getNumber())) {
+                $context->buildViolation('This value should not be blank.')
+                    ->atPath('number')
+                    ->addViolation();
+            }
+
+            if (empty($this->getClabe())) {
+                $context->buildViolation('This value should not be blank.')
+                    ->atPath('clabe')
+                    ->addViolation();
+            }
+        }
+    }
+
+    /**
+     * Returns the type list.
+     *
+     * @return array
+     */
+    public static function getTypeList(): array
+    {
+        return [
+            'card_debit' => self::TYPE_DEBIT,
+            'card_credit' => self::TYPE_CREDIT,
+        ];
     }
 
     /**
@@ -349,7 +433,6 @@ class Account
     }
 
     /**
-     *
      * @return int|null
      */
     public function getPin(): ?int

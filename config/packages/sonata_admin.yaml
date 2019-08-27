@@ -2,6 +2,8 @@ sonata_admin:
     title: 'Cash Machine Admin'
     options:
         title_mode: single_text
+        html5_validate: false
+    show_mosaic_button: false
     templates:
         layout: 'admin/layout.html.twig'
     dashboard:
@@ -12,6 +14,10 @@ sonata_admin:
                 label: menu.client
                 label_catalogue: messages
                 icon: '<i class="fa fa-user"></i>'
+            account:
+                label: menu.account
+                label_catalogue: messages
+                icon: '<i class="fa fa-dollar"></i>'
             sonata_user:
                 label_catalogue: SonataUserBundle
                 icon: '<i class="fa fa-users"></i>'
