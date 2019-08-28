@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cash Machine{% endblock %}
+
+{% block content %}
+    <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-5">Seleccione Opción</h1>
+    </div>
+
+    <div class="row mb-5 justify-content-between">
+        <div class="col-md-4">
+            <a href="#" class="btn btn-lg btn-block btn-outline-primary">Retiro en efectivo</a>
+        </div>
+
+        <div class="col-md-4">
+            {% if app.user.type == constant('TYPE_DEBIT', app.user) %}
+                <a href="#" class="btn btn-lg btn-block btn-outline-primary">Déposito en efectivo</a>
+            {% else %}
+                <a href="#" class="btn btn-lg btn-block btn-outline-primary">Pagar tarjeta</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row mb-5 justify-content-between">
+        <div class="col-md-4">
+            <a href="#" class="btn btn-lg btn-block btn-outline-primary">Consulta de saldo</a>
+        </div>
+        <div class="col-md-4">
+            <a href="{{ logout_path() }}" class="btn btn-lg btn-block btn-danger">Salir</a>
+        </div>
+    </div>
+{% endblock %}
