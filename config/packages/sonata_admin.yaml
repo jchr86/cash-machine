@@ -18,6 +18,10 @@ sonata_admin:
                 label: menu.account
                 label_catalogue: messages
                 icon: '<i class="fa fa-dollar"></i>'
+            movement:
+                label: menu.movement
+                label_catalogue: messages
+                icon: '<i class="fa fa-book"></i>'
             sonata_user:
                 label_catalogue: SonataUserBundle
                 icon: '<i class="fa fa-users"></i>'

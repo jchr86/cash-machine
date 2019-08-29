@@ -54,6 +54,30 @@ class Movement
     private $amount;
 
     /**
+     * Id.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->id;
+    }
+
+    /**
+     * Returns the type list.
+     *
+     * @return array
+     */
+    public static function getTypeList(): array
+    {
+        return [
+            'movement_cash_withdrawal' => self::TYPE_CASH_WITHDRAWAL,
+            'movement_pay_card' => self::TYPE_PAY_CARD,
+            'movement_cash_deposit' => self::TYPE_CASH_DEPOSIT,
+        ];
+    }
+
+    /**
      * @return int|null
      */
     public function getId(): ?int
@@ -129,6 +153,16 @@ class Movement
     public function getAmount(): ?float
     {
         return $this->amount;
+    }
+
+    /**
+     * Get amount format.
+     *
+     * @return string
+     */
+    public function getAmountFormat(): string
+    {
+        return number_format($this->amount, 2);
     }
 
     /**

@@ -143,6 +143,18 @@
                 <source>label.amount_deposit</source>
                 <target>Monto a Depositar</target>
             </trans-unit>
+            <trans-unit id="label_movement_type">
+                <source>label.movement_type</source>
+                <target>Movimiento</target>
+            </trans-unit>
+            <trans-unit id="label_movement_amount">
+                <source>label.movement_amount</source>
+                <target>Monto</target>
+            </trans-unit>
+            <trans-unit id="label_movement_detail">
+                <source>label.movement_detail</source>
+                <target>Detalle de movimiento</target>
+            </trans-unit>
             <!-- /Labels -->
 
             <!-- Help -->
@@ -182,6 +194,15 @@
                 <source>admin.account_create</source>
                 <target>Crear Cuenta</target>
             </trans-unit>
+
+            <trans-unit id="menu_movement">
+                <source>menu.movement</source>
+                <target>Movimientos</target>
+            </trans-unit>
+            <trans-unit id="admin_movement_list">
+                <source>admin.movement_list</source>
+                <target>Listado de Movimientos</target>
+            </trans-unit>
             <!-- /Grids -->
 
             <!-- DB -->
@@ -210,6 +231,19 @@
             <trans-unit id="operation_custom_amount">
                 <source>operation_custom_amount</source>
                 <target>Otra cantidad</target>
+            </trans-unit>
+
+            <trans-unit id="movement_cash_withdrawal">
+                <source>movement_cash_withdrawal</source>
+                <target>Retiro en efectivo</target>
+            </trans-unit>
+            <trans-unit id="movement_pay_card">
+                <source>movement_pay_card</source>
+                <target>Pago de tarjeta</target>
+            </trans-unit>
+            <trans-unit id="movement_cash_deposit">
+                <source>movement_cash_deposit</source>
+                <target>Depósito en efectivo</target>
             </trans-unit>
             <!-- /DB -->
 
