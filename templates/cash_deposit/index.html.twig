@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Depósito en efectivo{% endblock %}
+
+{% block content %}
+    <div class="py-3 mx-auto text-center">
+        <h1 class="display-5">Depósito en efectivo</h1>
+    </div>
+
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'autocomplete': 'off'}}) }}
+        {{ form_row(form.amount) }}
+
+        <div class="row mb-5 justify-content-between">
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-lg btn-block btn-success">Continuar</button>
+            </div>
+
+            <div class="col-md-4">
+                <a href="{{ path('homepage') }}" class="btn btn-lg btn-block btn-warning">Cancelar</a>
+            </div>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}

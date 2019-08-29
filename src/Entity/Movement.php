@@ -23,6 +23,7 @@ class Movement
 
     public const TYPE_CASH_WITHDRAWAL = 1;
     public const TYPE_PAY_CARD = 2;
+    public const TYPE_CASH_DEPOSIT = 3;
 
     /**
      * @ORM\Id()

@@ -139,6 +139,10 @@
                 <source>label.amount_payable</source>
                 <target>Monto a Pagar</target>
             </trans-unit>
+            <trans-unit id="label_amount_deposit">
+                <source>label.amount_deposit</source>
+                <target>Monto a Depositar</target>
+            </trans-unit>
             <!-- /Labels -->
 
             <!-- Help -->

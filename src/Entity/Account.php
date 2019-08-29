@@ -375,6 +375,20 @@ class Account implements UserInterface
     }
 
     /**
+     * Deposit.
+     *
+     * @param float $amount
+     *
+     * @return Account
+     */
+    public function deposit(float $amount): self
+    {
+        $this->amount += $amount;
+
+        return $this;
+    }
+
+    /**
      * @return float|null
      */
     public function getAmount(): ?float
