@@ -131,6 +131,14 @@
                 <source>label.amount_withdraw</source>
                 <target>Monto a Retirar</target>
             </trans-unit>
+            <trans-unit id="label_pay_card_balance">
+                <source>label.pay_card_balance</source>
+                <target>Operación</target>
+            </trans-unit>
+            <trans-unit id="label_amount_payable">
+                <source>label.amount_payable</source>
+                <target>Monto a Pagar</target>
+            </trans-unit>
             <!-- /Labels -->
 
             <!-- Help -->
@@ -189,6 +197,15 @@
             <trans-unit id="card_credit">
                 <source>card_credit</source>
                 <target>Crédito</target>
+            </trans-unit>
+
+            <trans-unit id="operation_balance">
+                <source>operation_balance</source>
+                <target>Saldo actual</target>
+            </trans-unit>
+            <trans-unit id="operation_custom_amount">
+                <source>operation_custom_amount</source>
+                <target>Otra cantidad</target>
             </trans-unit>
             <!-- /DB -->
 

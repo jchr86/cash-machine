@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pagar tarjeta{% endblock %}
+
+{% block content %}
+    <div class="py-3 mx-auto text-center">
+        <h1 class="display-5">Pagar tarjeta</h1>
+    </div>
+
+    <div class="p-3 mb-2 bg-primary text-white">
+        <strong>Saldo actual:</strong>
+        ${{ app.user.balance|number_format(2) }}
+    </div>
+
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'autocomplete': 'off'}}) }}
+        {{ form_row(form.balance) }}
+        {{ form_row(form.amount) }}
+
+        <div class="row mb-5 justify-content-between">
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-lg btn-block btn-success">Continuar</button>
+            </div>
+
+            <div class="col-md-4">
+                <a href="{{ path('homepage') }}" class="btn btn-lg btn-block btn-warning">Cancelar</a>
+            </div>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(function () {
+            const $operationField = $('[name="pay_card[balance]"]');
+            const $amount = $('#pay_card_amount').closest('.form-group');
+
+            $amount.hide();
+
+            $operationField.on('click', function () {
+                let opt = parseInt($(this).val());
+
+                if (opt === 1) {
+                    $amount.hide();
+                } else {
+                    $amount.show();
+                }
+            });
+        });
+    </script>
+{% endblock %}

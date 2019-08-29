@@ -361,6 +361,20 @@ class Account implements UserInterface
     }
 
     /**
+     * Paid.
+     *
+     * @param float $amount
+     *
+     * @return Account
+     */
+    public function paid(float $amount): self
+    {
+        $this->balance -= $amount;
+
+        return $this;
+    }
+
+    /**
      * @return float|null
      */
     public function getAmount(): ?float

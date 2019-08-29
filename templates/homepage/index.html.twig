@@ -16,7 +16,7 @@
             {% if app.user.type == constant('TYPE_DEBIT', app.user) %}
                 <a href="#" class="btn btn-lg btn-block btn-outline-primary">Déposito en efectivo</a>
             {% else %}
-                <a href="#" class="btn btn-lg btn-block btn-outline-primary">Pagar tarjeta</a>
+                <a href="{{ path('pay_card') }}" class="btn btn-lg btn-block btn-outline-primary">Pagar tarjeta</a>
             {% endif %}
         </div>
     </div>

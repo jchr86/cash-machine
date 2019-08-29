@@ -12,12 +12,13 @@
 
     <div class="p-3 mb-2 bg-primary text-white">
         <strong>Saldo a la fecha:</strong>
-        ${{ account.amountAvailable|number_format(2) }}
-
         {% if account.type == constant('TYPE_CREDIT', account) %}
+            ${{ account.balance|number_format(2) }}
             <br>
             <strong>Límite de crédito:</strong>
             ${{ account.amount|number_format(2) }}
+        {% else %}
+            ${{ account.amountAvailable|number_format(2) }}
         {% endif %}
     </div>
 

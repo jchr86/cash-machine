@@ -22,6 +22,7 @@ class Movement
     use TimestampableEntity;
 
     public const TYPE_CASH_WITHDRAWAL = 1;
+    public const TYPE_PAY_CARD = 2;
 
     /**
      * @ORM\Id()
