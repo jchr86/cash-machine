@@ -5,9 +5,9 @@
 - PHP 7.1.3 or higher.
 - and the [usual Symfony application requirements](https://symfony.com/doc/current/reference/requirements.html).
 
-## Installation.
+## Installation
 
-Clone & install composer.
+Clone & install composer
 
 ```bash
 $ git clone git@github.com:jchr86/cash-machine.git
@@ -15,7 +15,7 @@ $ cd cash-machine
 $ composer install
 ```
 
-Configure & create DB.
+Configure & create DB
 
 ```bash
 $ echo "DATABASE_URL=mysql://root:root@127.0.0.1:3306/cash_machine" > .env.local
@@ -32,7 +32,7 @@ $ php bin/console fos:user:create admin admin@jchr.name admin --super-admin
 Start server
 
 ```bash
-$ symfony server:start --no-tls
+$ php bin/console server:start
 ```
 
 ## Admin
@@ -47,7 +47,7 @@ http://127.0.0.1:8000/admin/
 
 2. Create an account.
 
-## Front.
+## Front
 
 - Log in with the created account.
   
