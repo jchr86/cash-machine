@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Consulta de saldo{% endblock %}
+
+{% block content %}
+    {# account \App\Entity\Account #}
+    {% set account = app.user %}
+
+    <div class="py-3 mx-auto text-center">
+        <h1 class="display-5">Consulta de saldo</h1>
+    </div>
+
+    <div class="p-3 mb-2 bg-primary text-white">
+        <strong>Saldo a la fecha:</strong>
+        ${{ account.amountAvailable|number_format(2) }}
+
+        {% if account.type == constant('TYPE_CREDIT', account) %}
+            <br>
+            <strong>Límite de crédito:</strong>
+            ${{ account.amount|number_format(2) }}
+        {% endif %}
+    </div>
+
+    <div class="row mb-5 justify-content-between">
+        <div class="col-md-4">
+            <a href="{{ path('homepage') }}" class="btn btn-lg btn-block btn-primary">Menu</a>
+        </div>
+
+        <div class="col-md-4">
+            <a href="{{ logout_url() }}" class="btn btn-lg btn-block btn-danger">Salir</a>
+        </div>
+    </div>
+{% endblock %}

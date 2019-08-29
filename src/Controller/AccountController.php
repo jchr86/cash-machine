@@ -124,4 +124,14 @@ class AccountController extends AbstractController
             'amountWithCommission' => $amountWithCommission,
         ]);
     }
+
+    /**
+     * @Route("/balance", name="balance")
+     *
+     * @return Response
+     */
+    public function balance(): Response
+    {
+        return $this->render('account/balance.html.twig');
+    }
 }
