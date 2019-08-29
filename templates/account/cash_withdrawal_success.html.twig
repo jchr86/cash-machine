@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Retiro en efectivo{% endblock %}
+
+{% block content %}
+    <div class="py-3 mx-auto text-center">
+        <h1 class="display-5">Resumen retiro en efetivo</h1>
+    </div>
+
+    <div class="p-3 mb-2 bg-primary text-white">
+        <strong>Retiro:</strong>
+        ${{ amount|number_format(2) }}
+
+        {% if amount != amountWithCommission %}
+            <br>
+            <strong>Retiro + comisión:</strong>
+            ${{ amountWithCommission|number_format(2) }}
+        {% endif %}
+    </div>
+
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col"># billetes</th>
+            <th scope="col">Denominación</th>
+            <th scope="col">Importe</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for bill, qty in bills %}
+            <tr>
+                <td>{{ qty }}</td>
+                <td>${{ bill|number_format(2) }}</td>
+                <td>${{ (bill * qty)|number_format(2) }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="row mb-5 justify-content-between">
+        <div class="col-md-4">
+            <a href="{{ path('homepage') }}" class="btn btn-lg btn-block btn-primary">Menu</a>
+        </div>
+
+        <div class="col-md-4">
+            <a href="{{ logout_url() }}" class="btn btn-lg btn-block btn-danger">Salir</a>
+        </div>
+    </div>
+{% endblock %}

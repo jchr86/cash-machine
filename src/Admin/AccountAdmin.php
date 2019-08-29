@@ -58,6 +58,13 @@ final class AccountAdmin extends AbstractAdmin
      */
     public function prePersist($object)
     {
+        if (Account::TYPE_CREDIT === $object->getType()) {
+            $object
+                ->setNumber(null)
+                ->setClabe(null)
+            ;
+        }
+
         $this->encodePin($object);
     }
 
@@ -158,6 +165,10 @@ final class AccountAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper): void
     {
+        /** @var Account $account */
+        $account = $this->getSubject();
+        $isNew = !$account || null === $account->getId();
+
         $formMapper
             ->with('label.account', [
                 'class' => 'col-md-6',
@@ -165,22 +176,6 @@ final class AccountAdmin extends AbstractAdmin
                 ->add('client', null, [
                     'label' => 'label.client',
                     'placeholder' => '',
-                ])
-                ->add('type', ChoiceType::class, [
-                    'label' => 'label.account_type',
-                    'choices' => Account::getTypeList(),
-                    'placeholder' => '',
-                ])
-                ->add('number', null, [
-                    'label' => 'label.account_number',
-                    'help' => 'help.debit_card',
-                ])
-                ->add('clabe', null, [
-                    'label' => 'label.clabe',
-                    'help' => 'help.debit_card',
-                ])
-                ->add('amount', null, [
-                    'label' => 'label.amount',
                 ])
             ->end()
             ->with('label.card', [
@@ -200,10 +195,50 @@ final class AccountAdmin extends AbstractAdmin
                 ])
                 ->add('plainPin', TextType::class, [
                     'label' => 'label.pin',
-                    'required' => !$this->getSubject() || null === $this->getSubject()->getId(),
+                    'required' => $isNew,
                 ])
             ->end()
         ;
+
+        if ($isNew) {
+            $formMapper
+                ->with('label.account')
+                    ->add('type', ChoiceType::class, [
+                        'label' => 'label.account_type',
+                        'choices' => Account::getTypeList(),
+                        'placeholder' => '',
+                    ])
+                ->end()
+            ;
+        }
+
+        if ($isNew || Account::TYPE_DEBIT === $account->getType()) {
+            $formMapper
+                ->with('label.account')
+                    ->add('number', null, [
+                        'label' => 'label.account_number',
+                        'help' => 'help.debit_card',
+                    ])
+                    ->add('clabe', null, [
+                        'label' => 'label.clabe',
+                        'help' => 'help.debit_card',
+                    ])
+                    ->add('amount', null, [
+                        'label' => 'label.amount',
+                    ])
+                ->end()
+            ;
+        }
+
+        if ($isNew) {
+            $formMapper
+                ->with('label.account')
+                    ->add('amount', null, [
+                        'label' => 'label.amount',
+                    ])
+                ->end()
+            ;
+        }
     }
 
     /**

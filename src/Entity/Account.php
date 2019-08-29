@@ -34,6 +34,8 @@ class Account implements UserInterface
     public const TYPE_DEBIT = 1;
     public const TYPE_CREDIT = 2;
 
+    public const CREDIT_COMMISSION_PERCENT = 10;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -92,14 +94,14 @@ class Account implements UserInterface
     private $cvc;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2)
+     * @ORM\Column(type="float", precision=10, scale=2)
      *
      * @Assert\Type(type="numeric")
      */
     private $amount;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
+     * @ORM\Column(type="float", precision=10, scale=2, nullable=true)
      */
     private $balance;
 
@@ -119,7 +121,7 @@ class Account implements UserInterface
     private $client;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Movement", mappedBy="account", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Movement", mappedBy="account", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $movements;
 
@@ -327,19 +329,51 @@ class Account implements UserInterface
     }
 
     /**
-     * @return string|null
+     * @return float|null
      */
-    public function getAmount(): ?string
+    public function getAmountAvailable(): ?float
+    {
+        $available = $this->amount;
+
+        if (self::TYPE_CREDIT === $this->type) {
+            $available -= $this->balance;
+        }
+
+        return $available;
+    }
+
+    /**
+     * Charge.
+     *
+     * @param float $amount
+     *
+     * @return Account
+     */
+    public function charge(float $amount): self
+    {
+        if (self::TYPE_CREDIT === $this->type) {
+            $this->balance += $amount;
+        } else {
+            $this->amount -= $amount;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getAmount(): ?float
     {
         return $this->amount;
     }
 
     /**
-     * @param string $amount
+     * @param float $amount
      *
      * @return Account
      */
-    public function setAmount(string $amount): self
+    public function setAmount(float $amount): self
     {
         $this->amount = $amount;
 
@@ -347,19 +381,35 @@ class Account implements UserInterface
     }
 
     /**
-     * @return string|null
+     * Get amount with commission.
+     *
+     * @param float $amount
+     *
+     * @return float|int
      */
-    public function getBalance(): ?string
+    public function getAmountWithCommission(float $amount)
+    {
+        if (self::TYPE_CREDIT === $this->type) {
+            $amount *= (self::CREDIT_COMMISSION_PERCENT / 100) + 1;
+        }
+
+        return $amount;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getBalance(): ?float
     {
         return $this->balance;
     }
 
     /**
-     * @param string|null $balance
+     * @param float|null $balance
      *
      * @return Account
      */
-    public function setBalance(?string $balance): self
+    public function setBalance(?float $balance): self
     {
         $this->balance = $balance;
 

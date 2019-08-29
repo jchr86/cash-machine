@@ -21,6 +21,8 @@ class Movement
 {
     use TimestampableEntity;
 
+    public const TYPE_CASH_WITHDRAWAL = 1;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -43,6 +45,11 @@ class Movement
      * @ORM\JoinColumn(nullable=false)
      */
     private $account;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $amount;
 
     /**
      * @return int|null
@@ -108,6 +115,30 @@ class Movement
     public function setAccount(?Account $account): self
     {
         $this->account = $account;
+
+        return $this;
+    }
+
+    /**
+     * Get amount.
+     *
+     * @return float|null
+     */
+    public function getAmount(): ?float
+    {
+        return $this->amount;
+    }
+
+    /**
+     * Set amount.
+     *
+     * @param float $amount
+     *
+     * @return Movement
+     */
+    public function setAmount(float $amount): self
+    {
+        $this->amount = $amount;
 
         return $this;
     }

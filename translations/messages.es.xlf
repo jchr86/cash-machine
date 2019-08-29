@@ -127,12 +127,20 @@
                 <source>label.balance</source>
                 <target>Balance</target>
             </trans-unit>
+            <trans-unit id="label_amount_withdraw">
+                <source>label.amount_withdraw</source>
+                <target>Monto a Retirar</target>
+            </trans-unit>
             <!-- /Labels -->
 
             <!-- Help -->
             <trans-unit id="help_debit_card">
                 <source>help.debit_card</source>
                 <target>Sólo aplica para tarjeta de débito</target>
+            </trans-unit>
+            <trans-unit id="help_amount_withdraw">
+                <source>help.amount_withdraw</source>
+                <target>Billetes disponibles: %bills%</target>
             </trans-unit>
             <!-- /Help -->
 
@@ -183,6 +191,17 @@
                 <target>Crédito</target>
             </trans-unit>
             <!-- /DB -->
+
+            <!-- Flash -->
+            <trans-unit id="flash_invalid_amount">
+                <source>Invalid amount.</source>
+                <target>Monto inválido.</target>
+            </trans-unit>
+            <trans-unit id="flash_not_have_enough_money">
+                <source>You do not have enough money.</source>
+                <target>No cuenta con suficiente dinero.</target>
+            </trans-unit>
+            <!-- /Flash -->
         </body>
     </file>
 </xliff>
