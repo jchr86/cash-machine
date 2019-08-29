@@ -223,14 +223,11 @@ final class AccountAdmin extends AbstractAdmin
                         'label' => 'label.clabe',
                         'help' => 'help.debit_card',
                     ])
-                    ->add('amount', null, [
-                        'label' => 'label.amount',
-                    ])
                 ->end()
             ;
         }
 
-        if ($isNew) {
+        if ($isNew || Account::TYPE_CREDIT === $account->getType()) {
             $formMapper
                 ->with('label.account')
                     ->add('amount', null, [
